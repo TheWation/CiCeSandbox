@@ -38,6 +38,26 @@ uvicorn main:app --reload
 ```
 This will start the server and make it available at http://localhost:8000/.
 
+## Installation With Docker:
+
+### Prerequisites
+- Docker installed on your system
+
+### Installation Steps
+1. Pull the Docker image from Docker Hub:
+```bash
+docker pull thewation/cicesandbox
+```
+
+2. Run the Docker container:
+```bash
+docker run -p 8000:8000 thewation/cicesandbox
+```
+
+This will start the container and map port 8000 on the host to port 8000 in the container.
+
+3. Access the web application in your browser at `http://localhost:8000`.
+
 ## Usage:
 
 Open the application: Once the server is running, you can open the application in your web browser by navigating to http://localhost:8000/.
