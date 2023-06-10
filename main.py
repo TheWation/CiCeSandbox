@@ -1,16 +1,26 @@
 from fastapi import FastAPI
-import subprocess
 import os
+from fastapi.responses import HTMLResponse
+
+from io import StringIO
+from contextlib import redirect_stdout
 
 app = FastAPI()
 
-@app.get("/rce/execute/{code}")
-async def execute(code: str):
+@app.get("/rce/execute/{name}")
+async def execute(name: str):
     try:
-        exec(code)
-        return {"success": True}
+        f = StringIO()
+        with redirect_stdout(f):
+            exec(f'print("Hello {name} !!!")')
+        output = f.getvalue()
+
+        status_code = 200
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        output = 'Server Error !'
+        status_code = 500
+
+    return HTMLResponse(content=output, status_code=status_code)
 
 @app.get("/rce/break/{firstname}")
 async def execute(firstname: str):
